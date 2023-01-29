@@ -1,0 +1,101 @@
+from memory import Memory
+from cpu import Cpu
+from opcodes import opcodes
+
+
+code = [
+    0x1F,0x0F,0x48,0x65,0x6C,0x6C,0x6F,0x20,0x57,0x6F,0x72,0x6C,0x64,
+    0x21,0x00,0x06,0x02,0x02,0x06,0x03,0xE8,0x38,0x18,0x00,0x32,0x00,
+    0x32,0x01,0x06,0x01,0x00,0x03,0x00,0x02,0x05,0x03,0x00,0x12,0x02,
+    0x12,0x03,0x15,0x01,0x02,0x27,0x1F,0x36,0x01,0x36,0x00,0x39,0x00
+]
+
+memory = Memory()
+m = 0
+for x in code:
+    memory.store(m,x)
+    m += 1
+
+
+cpu = Cpu(memory)
+cpu.ip = 0
+
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+cpu.cycle()
+memory.print()
+memory.output()
