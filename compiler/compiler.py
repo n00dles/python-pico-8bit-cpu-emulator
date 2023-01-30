@@ -30,24 +30,40 @@ class Compile:
         print(match)
 
     def parseNumber(self,input):
-        if input.slice(0, 2) === "0x":
-            return int(input.slice(2), 16)
-        elif  input.slice(0, 2) === "0o":
-            return int(input.slice(2), 8);
-        elif  input.slice(input.length - 1) === "b":
-            return int(input.slice(0, input.length - 1), 2)
-        elif  input.slice(input.length - 1) === "d":
-            return int(input.slice(0, input.length - 1), 10)
+        if input[0:2] == "0x":
+            return int(input[2:], 16)
+        elif  input[0:2] == "0o":
+            return int(input[2:], 8);
+        elif  input[len(input) - 1] == "b":
+            return int(input[0: len(input) - 1], 2)
+        elif  input[len(input) - 1] == "d":
+            return int(input[0:len(input) - 1], 10)
         elif self.exec(self.regexNum, input):
             return int(input, 10)
         else:
             print("Invalid number format")
 
+    def parseRegister(self,input):
+        input = input.upper()
+
+        if input == 'A':
+            return 0
+        elif (input == 'B'):
+            return 1
+        elif (input == 'C'):
+            return 2
+        elif (input == 'D'):
+            return 3
+        elif (input == 'SP'):
+            return 4
+        else:
+            return None
 
     def exec(self,regex, s):
         m = re.search(regex, s)
-        if m):
+        if m:
             return [s for s in m.groups()]
 
 
 c = Compile()
+print(c.parseNumber("43d"))
