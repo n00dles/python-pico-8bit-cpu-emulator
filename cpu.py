@@ -19,6 +19,19 @@ class Cpu:
         print("IP : %02x, SP : %02x" % (self.ip, self.sp))
         print("A  : %02x, B  : %02x, C  : %02x, D  : %02x" % (self.gpr[0],self.gpr[1],self.gpr[2], self.gpr[3]))
         
+    def registerMap(self):
+        return """\
+  +------+   +-+-+-+
+ A| 0x%02X |   |Z|C|F|
+ B| 0x%02X |   |%1d|%1d|%1d|
+ C| 0x%02X |   +-+-+-+
+ D| 0x%02X |
+  +------+  
+IP| 0x%02X |
+SP| 0x%02X |  
+  +------+ 
+""" % (self.gpr[0],self.gpr[1],self.zero, self.carry, self.fault,self.gpr[2],self.gpr[3],self.ip, self.sp)
+
 
     def checkGPR(self, reg):
         if reg < 0 or reg >= len(self.gpr):
