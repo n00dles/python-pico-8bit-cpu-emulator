@@ -48,13 +48,13 @@ class Compile:
 
         if input == 'A':
             return 0
-        elif (input == 'B'):
+        elif input == 'B':
             return 1
-        elif (input == 'C'):
+        elif input == 'C':
             return 2
-        elif (input == 'D'):
+        elif input == 'D':
             return 3
-        elif (input == 'SP'):
+        elif input == 'SP':
             return 4
         else:
             return None
@@ -100,12 +100,42 @@ class Compile:
 
                 return offset * 8 + base # shift offset 3 bits right and add code for register
 
+    def parseRegOrNumber(self,input, typeReg, typeNumber):
+        register = self.parseRegister(input)
+
+        if register != None:
+            return {type: typeReg, value: register}
+        else:
+            label = self.parseLabel(input)
+            if label != None:
+                return {type: typeNumber, value: label}
+            else:
+                if typeReg == "regaddress":
+
+                    register = self.parseOffsetAddressing(input)
+
+                    if register != None:
+                        return {type: typeReg, value: register}
+
+                value = self.parseNumber(input)
+
+                if self.is_nan(value):
+                    print("Not a " + typeNumber + ": " + value)
+                
+                elif value < 0 or value > 255:
+                    print(typeNumber + " must have a value between 0-255")
+
+                return {type: typeNumber, value: value}
+
     def parseLabel(self,input):
         label = re.search(self.regexLabel,input)
         if label:
             return input
         else:
             return None
+
+    def is_nan(self,x):
+        return (x != x)
 
     def exec(self,regex, s):
         m = re.search(regex, s)
