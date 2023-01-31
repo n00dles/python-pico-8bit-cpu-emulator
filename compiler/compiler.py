@@ -59,6 +59,49 @@ class Compile:
         else:
             return None
 
+    def parseOffsetAddressing(self,input):
+                input = input.upper()
+                m = 0
+                base = 0
+
+                if input[0] == 'A':
+                    base = 0
+                elif input[0] == 'B':
+                    base = 1
+                elif input[0] == 'C':
+                    base = 2
+                elif input[0] == 'D':
+                    base = 3
+                elif input.slice(0, 2) == "SP":
+                    base = 4
+                else:
+                    return None
+                
+                offset_start = 1
+                if base == 4:
+                    offset_start = 2
+                
+
+                if input[offset_start] == '-':
+                    m = -1
+                elif input[offset_start] == '+':
+                    m = 1
+                else:
+                    return None
+                
+
+                offset = m * int(input[offset_start + 1], 10)
+
+                if offset < -16 or offset > 15:
+                    print("offset must be a value between -16...+15")
+
+                if offset < 0:
+                    offset = 32 + offset # two's complement representation in 5-bit
+
+                return offset * 8 + base # shift offset 3 bits right and add code for register
+
+
+
     def exec(self,regex, s):
         m = re.search(regex, s)
         if m:
