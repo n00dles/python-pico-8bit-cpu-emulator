@@ -1,5 +1,7 @@
 import math
 from  opcodes import opcodes
+from bus import Bus
+from time import sleep
 
 class Cpu:
 
@@ -14,6 +16,7 @@ class Cpu:
         self.fault = False
         self.memory = memory
         self.debug = False
+        self.bus = Bus()
 
     def print(self):
         print("IP : %02x, SP : %02x" % (self.ip, self.sp))
@@ -137,6 +140,9 @@ SP| 0x%02X |
         memTo = 0
         number = 0
         instr = self.memory.load(self.ip)
+        self.bus.dataBus(instr)
+        print(instr)
+        sleep(1)
         if self.debug:
             print("-1: %02x, 0: %02x, +1: %02x, +2: %02x " % (self.memory.data[self.ip-1],self.memory.data[self.ip],self.memory.data[self.ip+1],self.memory.data[self.ip+2]))
         if instr == opcodes["NONE"]:
